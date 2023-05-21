@@ -2,6 +2,7 @@ package com.dogpopularityvote.application;
 
 import com.dogpopularityvote.domain.Dog;
 import com.dogpopularityvote.domain.DogRepository;
+import com.dogpopularityvote.dto.response.DogDetailResponse;
 import com.dogpopularityvote.dto.response.DogInfiniteScrollResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -38,5 +39,17 @@ class DogServiceTest {
 
         // then
         assertThat(response.getData().get(0).getName()).isEqualTo("코코");
+    }
+
+    @Test
+    void 강아지의_상세정보를_조회한다() {
+        // given
+        Long dogId = 21L;
+
+        // when
+        DogDetailResponse response = dogService.findDetailById(dogId);
+
+        // then
+        assertThat(response.getId()).isEqualTo(dogId);
     }
 }

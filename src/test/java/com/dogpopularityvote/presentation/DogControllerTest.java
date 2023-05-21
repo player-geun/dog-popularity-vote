@@ -1,6 +1,7 @@
 package com.dogpopularityvote.presentation;
 
 import com.dogpopularityvote.application.DogService;
+import com.dogpopularityvote.dto.response.DogDetailResponse;
 import com.dogpopularityvote.dto.response.DogInfiniteScrollResponse;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -34,6 +34,23 @@ class DogControllerTest {
 
         // when & then
         mockMvc.perform(get("/api/dogs")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void 강아지의_상세정보를_조회한다() throws Exception {
+        // given
+        Long dogId = 1L;
+
+        given(dogService.findDetailById(any()))
+                .willReturn(new DogDetailResponse());
+
+        // when & then
+        mockMvc.perform(get("/api/dogs/{dogId}/details", dogId)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                 )
