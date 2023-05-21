@@ -10,13 +10,13 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class DogResponse implements Serializable {
+public class DogSimpleResponse implements Serializable {
 
     private Long id;
     private String name;
     private int voteCount;
 
-    public DogResponse(Dog dog) {
+    public DogSimpleResponse(Dog dog) {
         this.id = dog.getId();
         this.name = dog.getName();
         this.voteCount = dog.getVoteCount();
