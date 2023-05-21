@@ -2,8 +2,9 @@ package com.dogpopularityvote.application;
 
 import com.dogpopularityvote.domain.Dog;
 import com.dogpopularityvote.domain.DogRepository;
+import com.dogpopularityvote.dto.response.DogDetailResponse;
 import com.dogpopularityvote.dto.response.DogInfiniteScrollResponse;
-import com.dogpopularityvote.dto.response.DogResponse;
+import com.dogpopularityvote.dto.response.DogSimpleResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
@@ -23,9 +24,14 @@ public class DogService {
     public DogInfiniteScrollResponse findAllWithPage(Pageable pageable) {
         Slice<Dog> dogs = dogRepository.findAllBy(pageable);
 
-        List<DogResponse> responses = dogs.getContent().stream()
-                .map(DogResponse::new)
+        List<DogSimpleResponse> responses = dogs.getContent().stream()
+                .map(DogSimpleResponse::new)
                 .collect(Collectors.toList());
         return new DogInfiniteScrollResponse(responses, dogs.hasNext(), dogs.getNumber());
+    }
+
+    public DogDetailResponse findDetailById(Long id) {
+        Dog dog = dogRepository.getById(id);
+        return new DogDetailResponse(dog);
     }
 }

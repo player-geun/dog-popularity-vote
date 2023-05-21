@@ -12,7 +12,7 @@ import java.util.List;
 @Getter
 public class DogInfiniteScrollResponse implements Serializable {
 
-    private List<DogResponse> data;
+    private List<DogSimpleResponse> data;
     private Boolean hasNext;
     private Integer pageNumber;
 }

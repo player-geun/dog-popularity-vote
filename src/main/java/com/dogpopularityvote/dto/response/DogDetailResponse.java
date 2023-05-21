@@ -10,15 +10,19 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class DogResponse implements Serializable {
+public class DogDetailResponse implements Serializable {
 
     private Long id;
     private String name;
+    private String photoName;
+    private String photoPath;
     private int voteCount;
 
-    public DogResponse(Dog dog) {
+    public DogDetailResponse(Dog dog) {
         this.id = dog.getId();
         this.name = dog.getName();
+        this.photoName = dog.getPhotoName();
+        this.photoPath = dog.getPhotoPath();
         this.voteCount = dog.getVoteCount();
     }
 }
