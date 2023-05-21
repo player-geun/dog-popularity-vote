@@ -39,4 +39,8 @@ public class Dog extends BaseEntity {
         this.photoPath = photoPath;
         this.voteCount = voteCount;
     }
+
+    public void doVote(int vote) {
+        voteCount += vote;
+    }
 }
