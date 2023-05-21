@@ -29,3 +29,18 @@ jobs:
       if: always()
       with:
         junit_files: ${{ github.workspace }}/build/test-results/**/*.xml
+    
+    
+    services:
+      kafka:
+        image: confluentinc/cp-kafka:latest
+        ports:
+          - 9092:9092
+        options: >-
+          --env ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092
+          --env KAFKA_LISTENERS=PLAINTEXT://0.0.0.0:9092
+          --env KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT
+          --env KAFKA_INTER_BROKER_LISTENER_NAME=PLAINTEXT
+          --env KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1
+        env:
+          KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
