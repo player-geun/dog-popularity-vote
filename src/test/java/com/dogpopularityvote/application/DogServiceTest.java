@@ -26,7 +26,7 @@ class DogServiceTest {
     @BeforeEach
     void setUp() {
         dogRepository.save(
-                new Dog("코코", "코코입니다.", "coco", "/downloads/", 1));
+                new Dog("코코", "코코입니다.", "coco", "/downloads/", 21));
     }
 
     @Test

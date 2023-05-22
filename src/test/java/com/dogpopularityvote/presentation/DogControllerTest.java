@@ -1,8 +1,11 @@
 package com.dogpopularityvote.presentation;
 
+import com.dogpopularityvote.application.DogProducerService;
 import com.dogpopularityvote.application.DogService;
+import com.dogpopularityvote.dto.request.DogVoteRequest;
 import com.dogpopularityvote.dto.response.DogDetailResponse;
 import com.dogpopularityvote.dto.response.DogInfiniteScrollResponse;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -13,7 +16,9 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.willDoNothing;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -23,8 +28,14 @@ class DogControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
+    @Autowired
+    private ObjectMapper objectMapper;
+
     @MockBean
     private DogService dogService;
+
+    @MockBean
+    private DogProducerService dogProducerService;
 
     @Test
     void 모든_강아지를_페이지_단위로_조회한다() throws Exception {
@@ -56,5 +67,22 @@ class DogControllerTest {
                 )
                 .andDo(print())
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    void 강아지에_투표를_한다() throws Exception {
+        // given
+        DogVoteRequest request = new DogVoteRequest();
+
+        willDoNothing().given(dogProducerService).sendVote(any(DogVoteRequest.class));
+
+        // when & then
+        mockMvc.perform(post("/api/dogs/votes")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request))
+                )
+                .andDo(print())
+                .andExpect(status().isNoContent());
     }
 }
