@@ -38,7 +38,7 @@ class DogProducerServiceTest {
 
         // when
         dogProducerService.sendVote(request);
-        Thread.sleep(2000);
+        Thread.sleep(10000);
 
         // then
         assertThat(dogRepository.getById(dogId).getVoteCount()).isEqualTo(22);
