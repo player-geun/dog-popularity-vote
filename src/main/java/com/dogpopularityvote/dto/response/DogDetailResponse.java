@@ -21,8 +21,8 @@ public class DogDetailResponse implements Serializable {
     public DogDetailResponse(Dog dog) {
         this.id = dog.getId();
         this.name = dog.getName();
-        this.photoName = dog.getPhotoName();
-        this.photoPath = dog.getPhotoPath();
+        this.photoName = dog.getImage().getName();
+        this.photoPath = dog.getImage().getPath();
         this.voteCount = dog.getVoteCount();
     }
 }

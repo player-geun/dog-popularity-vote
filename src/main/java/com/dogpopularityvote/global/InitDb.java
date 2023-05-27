@@ -1,6 +1,7 @@
 package com.dogpopularityvote.global;
 
 import com.dogpopularityvote.domain.Dog;
+import com.dogpopularityvote.domain.DogImage;
 import com.dogpopularityvote.domain.DogRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -27,7 +28,7 @@ public class InitDb {
         public void dbInit() {
             for (int i = 1; i <= 20; i++) {
                 dogRepository.save(new Dog("강아지" + i,
-                        String.valueOf(i), String.valueOf(i), String.valueOf(i), i));
+                        String.valueOf(i), new DogImage(String.valueOf(i), String.valueOf(i)), i));
             }
         }
     }

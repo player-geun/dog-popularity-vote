@@ -1,6 +1,7 @@
 package com.dogpopularityvote.application;
 
 import com.dogpopularityvote.domain.Dog;
+import com.dogpopularityvote.domain.DogImage;
 import com.dogpopularityvote.domain.DogRepository;
 import com.dogpopularityvote.dto.response.DogDetailResponse;
 import com.dogpopularityvote.dto.response.DogInfiniteScrollResponse;
@@ -26,7 +27,7 @@ class DogServiceTest {
     @BeforeEach
     void setUp() {
         dogRepository.save(
-                new Dog("코코", "코코입니다.", "coco", "/downloads/", 21));
+                new Dog("코코", "코코입니다.", new DogImage("coco", "/downloads/"), 21));
     }
 
     @Test
