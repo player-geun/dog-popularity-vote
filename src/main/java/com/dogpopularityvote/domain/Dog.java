@@ -23,20 +23,16 @@ public class Dog extends BaseEntity {
     @Column(nullable = false)
     private String description;
 
-    @Column(name = "photo_name", nullable = false)
-    private String photoName;
-
-    @Column(name = "photo_path", nullable = false)
-    private String photoPath;
+    @Embedded
+    private DogImage image;
 
     @Column(name = "vote_count", nullable = false)
     private int voteCount;
 
-    public Dog(String name, String description, String photoName, String photoPath, int voteCount) {
+    public Dog(String name, String description, DogImage image, int voteCount) {
         this.name = name;
         this.description = description;
-        this.photoName = photoName;
-        this.photoPath = photoPath;
+        this.image = image;
         this.voteCount = voteCount;
     }
 

@@ -10,6 +10,6 @@ class DogTest {
     void 강아지를_생성한다() {
         // given & when & then
         assertDoesNotThrow(() ->
-                new Dog("코코", "코코입니다.", "coco", "/downloads/", 1));
+                new Dog("코코", "코코입니다.", new DogImage("coco", "/downloads/"), 1));
     }
 }
