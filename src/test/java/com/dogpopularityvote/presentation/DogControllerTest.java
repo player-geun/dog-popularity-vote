@@ -1,11 +1,8 @@
 package com.dogpopularityvote.presentation;
 
-import com.dogpopularityvote.application.VoteProducerService;
 import com.dogpopularityvote.application.DogService;
-import com.dogpopularityvote.dto.request.DogVoteRequest;
 import com.dogpopularityvote.dto.response.DogDetailResponse;
 import com.dogpopularityvote.dto.response.DogInfiniteScrollResponse;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -16,9 +13,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.BDDMockito.willDoNothing;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -58,6 +53,22 @@ class DogControllerTest {
         mockMvc.perform(get("/api/dogs/{dogId}/details", dogId)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void 강아지의_이미지를_조회한다() throws Exception {
+        // given
+        Long dogId = 1L;
+
+        given(dogService.findImageById(any())).willReturn(any());
+
+        // when & then
+        mockMvc.perform(get("/api/dogs/{dogId}/images", dogId)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.IMAGE_JPEG_VALUE)
                 )
                 .andDo(print())
                 .andExpect(status().isOk());

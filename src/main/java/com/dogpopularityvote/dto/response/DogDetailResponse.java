@@ -14,15 +14,14 @@ public class DogDetailResponse implements Serializable {
 
     private Long id;
     private String name;
-    private String photoName;
-    private String photoPath;
+
+    private String description;
     private int voteCount;
 
     public DogDetailResponse(Dog dog) {
         this.id = dog.getId();
         this.name = dog.getName();
-        this.photoName = dog.getImage().getName();
-        this.photoPath = dog.getImage().getPath();
+        this.description = dog.getDescription();
         this.voteCount = dog.getTotalVoteCount();
     }
 }

@@ -5,7 +5,10 @@ import com.dogpopularityvote.domain.DogRepository;
 import com.dogpopularityvote.dto.response.DogDetailResponse;
 import com.dogpopularityvote.dto.response.DogInfiniteScrollResponse;
 import com.dogpopularityvote.dto.response.DogSimpleResponse;
+import com.dogpopularityvote.exception.NoSuchDogImageException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
@@ -33,5 +36,16 @@ public class DogService {
     public DogDetailResponse findDetailById(Long id) {
         Dog dog = dogRepository.getById(id);
         return new DogDetailResponse(dog);
+    }
+
+    public Resource findImageById(Long id) {
+        Dog dog = dogRepository.getById(id);
+        String fullPath = dog.getImage().makeFullPath();
+
+        Resource resource = new FileSystemResource(fullPath);
+        if(!resource.exists()){
+            throw new NoSuchDogImageException();
+        }
+        return resource;
     }
 }
