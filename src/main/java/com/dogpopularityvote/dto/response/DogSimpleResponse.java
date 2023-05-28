@@ -19,6 +19,6 @@ public class DogSimpleResponse implements Serializable {
     public DogSimpleResponse(Dog dog) {
         this.id = dog.getId();
         this.name = dog.getName();
-        this.voteCount = dog.getVoteCount();
+        this.voteCount = dog.getTotalVoteCount();
     }
 }

@@ -10,5 +10,10 @@ import lombok.NoArgsConstructor;
 public class DogVoteRequest {
 
     private Long dogId;
-    private int vote;
+    private boolean voted;
+    private String clientIp;
+
+    public void setClientIp(String clientIp) {
+        this.clientIp = clientIp;
+    }
 }
