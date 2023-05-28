@@ -28,7 +28,8 @@ public class InitDb {
         public void dbInit() {
             for (int i = 1; i <= 20; i++) {
                 dogRepository.save(new Dog("강아지" + i,
-                        String.valueOf(i), new DogImage(String.valueOf(i), String.valueOf(i)), i));
+                        String.valueOf(i), new DogImage("dog.jpeg",
+                        "/Users/player-geun/documents/github/dog-popularity-vote/src/main/resources/image/"), i));
             }
         }
     }
