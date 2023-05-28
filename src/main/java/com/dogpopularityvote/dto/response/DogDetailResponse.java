@@ -23,6 +23,6 @@ public class DogDetailResponse implements Serializable {
         this.name = dog.getName();
         this.photoName = dog.getImage().getName();
         this.photoPath = dog.getImage().getPath();
-        this.voteCount = dog.getVoteCount();
+        this.voteCount = dog.getTotalVoteCount();
     }
 }
