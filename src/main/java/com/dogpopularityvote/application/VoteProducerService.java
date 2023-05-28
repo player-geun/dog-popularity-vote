@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
-public class DogProducerService {
+public class VoteProducerService {
 
     private static final String TOPIC = "vote";
 
