@@ -5,9 +5,13 @@ import com.dogpopularityvote.dto.response.DogDetailResponse;
 import com.dogpopularityvote.dto.response.DogInfiniteScrollResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/api/dogs")
@@ -28,5 +32,13 @@ public class DogController {
     @Cacheable(cacheNames = "dog", key = "#id")
     public DogDetailResponse findDetailById(@PathVariable Long id) {
         return dogService.findDetailById(id);
+    }
+
+    @GetMapping("/{id}/images")
+    public ResponseEntity<Resource> findImageById(@PathVariable Long id) {
+        Resource resource = dogService.findImageById(id);
+        HttpHeaders header = new HttpHeaders();
+        header.add("Content-Type", "image/jpeg");
+        return new ResponseEntity<>(resource, header, HttpStatus.OK);
     }
 }
