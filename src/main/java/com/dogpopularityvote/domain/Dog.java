@@ -27,16 +27,25 @@ public class Dog extends BaseEntity {
     private DogImage image;
 
     @Column(name = "vote_count", nullable = false)
-    private int voteCount;
+    private int totalVoteCount;
 
-    public Dog(String name, String description, DogImage image, int voteCount) {
+    public Dog(String name, String description, DogImage image, int totalVoteCount) {
         this.name = name;
         this.description = description;
         this.image = image;
-        this.voteCount = voteCount;
+        this.totalVoteCount = totalVoteCount;
     }
 
-    public void doVote(int vote) {
-        voteCount += vote;
+    public void vote(Vote vote, boolean voted) {
+        if (vote.isDuplicated(voted)) {
+            return;
+        }
+
+        vote.changeVoted(voted);
+        if (voted) {
+            totalVoteCount++;
+            return;
+        }
+        totalVoteCount--;
     }
 }
