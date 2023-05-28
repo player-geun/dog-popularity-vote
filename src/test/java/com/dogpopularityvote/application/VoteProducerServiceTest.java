@@ -14,16 +14,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @EmbeddedKafka
 @SpringBootTest
-class DogProducerServiceTest {
-
-    @Autowired
-    private DogService dogService;
+class VoteProducerServiceTest {
 
     @Autowired
     private DogRepository dogRepository;
 
     @Autowired
-    private DogProducerService dogProducerService;
+    private VoteProducerService voteProducerService;
 
     @BeforeEach
     void setUp() {
@@ -35,13 +32,13 @@ class DogProducerServiceTest {
     void 투표를_한다() throws Exception {
         // given
         Long dogId = 21L;
-        DogVoteRequest request = new DogVoteRequest(dogId, 1);
+        DogVoteRequest request = new DogVoteRequest(dogId, true, "0:0:0:0:0:0:0:1");
 
         // when
-        dogProducerService.sendVote(request);
+        voteProducerService.sendVote(request);
         Thread.sleep(10000);
 
         // then
-        assertThat(dogRepository.getById(dogId).getVoteCount()).isEqualTo(22);
+        assertThat(dogRepository.getById(dogId).getTotalVoteCount()).isEqualTo(22);
     }
 }

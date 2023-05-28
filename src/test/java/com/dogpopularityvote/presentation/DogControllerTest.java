@@ -1,6 +1,6 @@
 package com.dogpopularityvote.presentation;
 
-import com.dogpopularityvote.application.DogProducerService;
+import com.dogpopularityvote.application.VoteProducerService;
 import com.dogpopularityvote.application.DogService;
 import com.dogpopularityvote.dto.request.DogVoteRequest;
 import com.dogpopularityvote.dto.response.DogDetailResponse;
@@ -28,14 +28,8 @@ class DogControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @Autowired
-    private ObjectMapper objectMapper;
-
     @MockBean
     private DogService dogService;
-
-    @MockBean
-    private DogProducerService dogProducerService;
 
     @Test
     void 모든_강아지를_페이지_단위로_조회한다() throws Exception {
@@ -67,22 +61,5 @@ class DogControllerTest {
                 )
                 .andDo(print())
                 .andExpect(status().isOk());
-    }
-
-    @Test
-    void 강아지에_투표를_한다() throws Exception {
-        // given
-        DogVoteRequest request = new DogVoteRequest();
-
-        willDoNothing().given(dogProducerService).sendVote(any(DogVoteRequest.class));
-
-        // when & then
-        mockMvc.perform(post("/api/dogs/votes")
-                        .accept(MediaType.APPLICATION_JSON)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(request))
-                )
-                .andDo(print())
-                .andExpect(status().isNoContent());
     }
 }
