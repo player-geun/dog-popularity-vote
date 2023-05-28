@@ -22,14 +22,14 @@ public class DogController {
     private final DogService dogService;
 
     @GetMapping
-    @Cacheable(cacheNames = "dogs")
+    @Cacheable(cacheNames = "dogs", cacheManager = "userCacheManager")
     public DogInfiniteScrollResponse findAllWithPage(@PageableDefault(sort = "updatedAt",
             direction = Sort.Direction.DESC, size = 5) Pageable pageable) {
         return dogService.findAllWithPage(pageable);
     }
 
     @GetMapping("/{id}/details")
-    @Cacheable(cacheNames = "dog", key = "#id")
+    @Cacheable(cacheNames = "dog", key = "#id", cacheManager = "userCacheManager")
     public DogDetailResponse findDetailById(@PathVariable Long id) {
         return dogService.findDetailById(id);
     }
